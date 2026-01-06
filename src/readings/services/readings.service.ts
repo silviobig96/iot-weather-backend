@@ -11,10 +11,12 @@ export class ReadingsService {
 
   async create(createDto: Partial<Reading>): Promise<Reading> {
     const created = new this.readingModel(createDto);
+    console.log('Creating reading:', createDto);
     return created.save();
   }
 
   async findLatest(sensorId: string, limit = 10): Promise<Reading[]> {
+    console.log(`Fetching latest ${limit} readings for sensorId: ${sensorId}`);
     return this.readingModel
       .find({ sensorId })
       .sort({ timestamp: -1 })
